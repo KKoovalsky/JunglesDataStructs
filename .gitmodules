@@ -1,0 +1,3 @@
+[submodule "ext_deps/unity"]
+	path = ext_deps/unity
+	url = https://github.com/ThrowTheSwitch/Unity.git
