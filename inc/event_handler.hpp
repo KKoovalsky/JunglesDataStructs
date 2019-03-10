@@ -15,6 +15,16 @@ namespace jungles {
 // --------------------------------------------------------------------------------------------------------------------
 // DECLARATIONS FOR PUBLIC USE
 // --------------------------------------------------------------------------------------------------------------------
+
+/**
+ * \brief       This class stores event handlers and has a method raise()
+ *              which allows to mark the place where the event occurs.
+ *
+ * Use this class when you want to expose some event like pushing a button or scheduled wake up in the system.
+ * When the event occurs then call the function raise() it will call all the registered handlers.
+ * The handlers must return policy which tells the event handler whether to keep the handler or to deregister the
+ * handler. This allows to control when should be the handler be deregistered.
+ */
 class event_handler
 {
   public:
