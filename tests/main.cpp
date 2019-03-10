@@ -7,6 +7,7 @@
 
 extern void test_ibytestream_ostringstream();
 extern void test_member_isr_enable();
+extern void test_event_handler();
 
 int main()
 {
@@ -14,6 +15,7 @@ int main()
 
     test_ibytestream_ostringstream();
     test_member_isr_enable();
+    test_event_handler();
 
     return UNITY_END();
 }
