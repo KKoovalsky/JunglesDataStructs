@@ -17,6 +17,17 @@ namespace jungles {
 // --------------------------------------------------------------------------------------------------------------------
 // DECLARATION OF PUBLIC STUFF
 // --------------------------------------------------------------------------------------------------------------------
+
+/**
+ * \brief Enables a member function to be called from ISR using a function pointer
+ * \tparam PointerToIsrHandler Reference to the pointer called from ISR called from extern "C" context
+ * \tparam ObjectType The type of the object whose member function will be called from ISR
+ * \tparam MemberFunction The address to the member function which will be called from ISR
+ * \tparam ConstructorParams Parameters which will be forwarded to the ObjectType's constructor.
+ * \returns     Reference to the static object of type ObjectType whose member function will be called from ISR
+ *              using the function pointer referenced by PointerToIsrHandler.
+ * \see README.md for more
+ */
 template <auto &PointerToIsrHandler, typename ObjectType, auto MemberFunction, typename... ConstructorParams>
 ObjectType &make_and_enable_member_as_isr_handler(ConstructorParams &&... params);
 
