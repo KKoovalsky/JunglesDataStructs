@@ -13,7 +13,6 @@ class some_class
     {
     }
 
-
   public:
     unsigned isr_handler(unsigned a, unsigned b)
     {
@@ -21,8 +20,6 @@ class some_class
     }
     unsigned m_u;
     char m_c;
-
-    
 };
 
 // --------------------------------------------------------------------------------------------------------------------
@@ -45,12 +42,11 @@ void test_member_isr_enable()
 // --------------------------------------------------------------------------------------------------------------------
 // DEFINITION OF THE TEST CASES
 // --------------------------------------------------------------------------------------------------------------------
-static unsigned (*fp)(unsigned, unsigned);
+unsigned (*fp)(unsigned, unsigned);
 static void UNIT_TEST_1_isr_handler_with_ret_val_and_multiple_params()
 {
-    using P = some_class::isr_handler;
-    auto t = jungles::make_and_enable_member_as_isr_handler<fp, some_class, &some_class::isr_handler>(
-        static_cast<unsigned>(5), 'a');
+    jungles::make_and_enable_member_as_isr_handler<fp, some_class, &some_class::isr_handler>(static_cast<unsigned>(5),
+                                                                                             'a');
     auto r = (*fp)(5, 6);
     TEST_ASSERT_EQUAL_UINT(11, r);
 }
