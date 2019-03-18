@@ -25,7 +25,7 @@ include_directories("${HEADERS_PATH}" ${UNITY_DIR})
 
 file(GLOB SOURCES ${CMAKE_SOURCE_DIR}/tests/*.c*)
 
-add_executable(${PRJ_NAME} ${SOURCES} ${UNITY_DIR}/unity.c)
+add_executable(${PRJ_NAME} ${SOURCES} ${UNITY_DIR}/unity.c ${SOURCES_PATH}/string_ops.cpp)
 
 add_custom_target(run-test
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./${PRJ_NAME}
