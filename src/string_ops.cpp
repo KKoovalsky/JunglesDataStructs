@@ -1,5 +1,5 @@
 /**
- * @file	string_ops.c
+ * @file	string_ops.cpp
  * @brief	Defines string operations
  * @author	Kacper Kowalski - kacper.s.kowalski@gmail.com
  */

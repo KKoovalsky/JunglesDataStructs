@@ -7,9 +7,7 @@
 #ifndef STRING_OPS_HPP
 #define STRING_OPS_HPP
 
-#include <algorithm>
-#include <iostream>
-#include <iterator>
+#include <string_view>
 
 namespace jungles {
 
