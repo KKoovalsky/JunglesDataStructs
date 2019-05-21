@@ -1,6 +1,10 @@
 # Jungles data structs
 
-## Enables member function as the ISR handler
+Documentation of data structures defined within this library. C++17 is necessary.
+
+## jungles::make_and_enable_member_as_isr_handler
+
+Enable a member function as an ISR handler
 
 Typical approach for such scenario would be like that for such a class:
 
