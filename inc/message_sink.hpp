@@ -64,7 +64,16 @@ template <typename T, std::size_t N> struct exceptional_sequence
 
 } // namespace detail
 
-// TODO: WRITE WTF ABOUT THIS CLASS AND README.MD AS WELL
+/**
+ * \brief A class used to put single elements to it and obtain whole messages.
+ *
+ * This class is intended to be used, e.g. in ISR handlers where single bytes can be obtained between calls only.
+ * User can specify the message terminators which determine the message end. There can also be exceptional sequences
+ * specified. Those sequences doesn't need to have a terminator at the end, but must be left-aligned. It means that
+ * if such sequence will occur somewhere in the middle of a message then nothing happens. The exceptional sequence
+ * is a message which doesn't need a terminator at the end.
+ * The sink uses statically allocated array which size must be specified at the instantiation time.
+ */
 template <std::size_t InternalBufferSize,
           typename T,
           std::size_t TerminatorsNum,
@@ -98,13 +107,18 @@ class message_sink
 
     /**
      * \brief Puts an element to the message sink and returns a range when a whole message is received or buffer
-     * overflows. A message is received when:
+     * overflows.
+     *
+     * A message is received when:
      * - the element elem is a terminator,
      * - the messages matches any of the specified exceptional sequence.
      *
      * When there is no more space in the buffer the message is also returned.
      *
      * The range is a pair of const_iterator's to the beginning and end of the received message.
+     *
+     * \attention       This method is not reentrant nor thread-safe. When a pair of iterators is obtained you must use
+     *                  the range before the next call to put_element_and_get_message() is invoked.
      *
      * \returns std::pair of const_iterator's to the beginning and end of the received message when the conditions are
      *          met or default-initialized std::optional otherwise.
