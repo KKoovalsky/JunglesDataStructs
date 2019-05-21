@@ -92,8 +92,8 @@ Example usage:
 
 ```
 constexpr std::array terminators{'\r', '\n', '\0'};
-constexpr auto exceptional_sequence1{jungles::utils::to_array{">"};
-constexpr auto exceptional_sequence2{jungles::utils::to_array{"HELLO"};
+constexpr auto exceptional_sequence1{jungles::utils::to_array(">")};
+constexpr auto exceptional_sequence2{jungles::utils::to_array("HELLO")};
 
 // Deduces that sink contains chars.
 auto char_sink{make_message_sink<256>(terminators, exceptional_sequence1, exceptional_sequence2)};
