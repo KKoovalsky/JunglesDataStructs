@@ -41,6 +41,11 @@ template <std::size_t N> constexpr std::array<char, N - 1> to_array(const char (
     return to_array(a, std::make_index_sequence<N - 1>());
 }
 
+template <typename E> constexpr auto to_u_type(E e) noexcept
+{
+    return static_cast<std::underlying_type_t<E>>(e);
+}
+
 } // namespace utils
 
 } // namespace jungles
