@@ -41,6 +41,8 @@ template <class ForwardIt> constexpr bool is_ascending(ForwardIt first, ForwardI
 
 } // namespace detail
 
+/**
+ */
 template <typename Enum,
           typename ValueType,
           std::size_t NumBoundaries,
@@ -50,16 +52,21 @@ class boundary_mapper
     static_assert(std::is_enum_v<Enum>, "The first template argument must be an enum");
     static_assert(detail::is_ascending(std::begin(Boundaries), std::end(Boundaries)),
                   "The boundaries must be ascending");
-    static_assert(NumBoundaries >= 2, "There must be at least two boundaries");
+    static_assert(NumBoundaries >= 1, "There must be at least two boundaries");
 
   public:
     constexpr Enum convert(ValueType val) const
     {
-        return ValueType{};
+        unsigned i = 0;
+        for (; i < m_num_boundaries; ++i)
+            if (val <= m_boundaries[i])
+                break;
+        return static_cast<Enum>(i);
     }
 
   private:
     const std::array<ValueType, NumBoundaries> &m_boundaries = Boundaries;
+    const std::size_t m_num_boundaries = NumBoundaries + 1;
 };
 
 template <typename Enum, const auto &Boundaries> constexpr auto make_boundary_mapper()
