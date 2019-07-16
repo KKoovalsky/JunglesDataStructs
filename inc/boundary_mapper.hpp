@@ -42,6 +42,28 @@ template <class ForwardIt> constexpr bool is_ascending(ForwardIt first, ForwardI
 } // namespace detail
 
 /**
+ * \brief Maps values to enum class.
+ *
+ * This class converts values from boundaries to enum class. The boundaries are provided as array of values. The
+ * boundaries must be sorted in ascending order, e.g. 10, 20, 30. Taking this example, this class will split the
+ * input values to such intervals:
+ * I. (-inf, 10>
+ * II. (10, 20>
+ * III. (20, 30>
+ * IV. (30, inf)
+ * For each interval an enumerated value is assigned. The provided enum class must have the underlying values counting
+ * started from 0 and incremented by one for consecutive values: e.g. enum class test_enum_class { A = 0, B, C, D };
+ * For this example the intervals will be mapped like that:
+ * I. (-inf, 10> - test_enum_class::A
+ * II. (10, 20> - test_enum_class::B
+ * III. (20, 30> - test_enum_class::C
+ * IV. (30, inf) - test_enum_class::D
+ * The enum class must have at least so many values as the size of the input array with boundaries + 1.
+ *
+ * It is preferred to construct the class using the factory function make_boundary_mapper() to use some template
+ * auto-deduction.
+ *
+ * Usage example: map ADC values from leaf wetness sensor to levels of wetness.
  */
 template <typename Enum,
           typename ValueType,
