@@ -7,8 +7,7 @@
 #include <iostream>
 #include <string>
 
-#define CATCH_CONFIG_RUNNER
-#include "catch/catch.hpp"
+extern int run_catch(int argc, char *argv[]);
 
 extern void test_ibytestream_ostringstream();
 extern void test_member_isr_enable();
@@ -39,7 +38,6 @@ int main(int argc, char *argv[])
 
     std::cout << "\r\nUnity tests finished with status: " << res << std::endl;
     std::cout << "\r\nRunning Catch tests\r\n" << std::endl;
-
-    return Catch::Session().run(argc, argv);
+    return run_catch(argc, argv);
 }
 
