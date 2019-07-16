@@ -7,9 +7,9 @@
 #ifndef BOUNDARY_MAPPER_HPP
 #define BOUNDARY_MAPPER_HPP
 
-namespace jungles {
-
 #include <array>
+
+namespace jungles {
 
 namespace detail {
 
