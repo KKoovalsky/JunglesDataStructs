@@ -47,6 +47,20 @@ template <typename E> constexpr auto to_u_type(E e) noexcept
     return static_cast<std::underlying_type_t<E>>(e);
 }
 
+/**
+ * \brief Finds the nearest boundary, where boundaries are provided as range <it, end), for specific value val and
+ *        taking into account the maximum value max_val.
+ *
+ * This means that when the boundaries are e.g. 100, 200, 300 and the maximum value is 600 then:
+ * * for val = 120 the result is 100
+ * * for val = 155 the result is 200
+ * * for val = 290 the result is 200
+ * * for val = 0 the result is 100
+ * * for val = 501 the result is 100
+ * * for val = 499 the result is 300
+ *
+ * \see The test_find_nearest_boundary.cpp which contains tests and explains in more details the idea behind that.
+ */
 template <typename It, typename T> constexpr It find_nearest_boundary(It it, It end, T max_val, T val)
 {
     if (it == end || val > max_val)
