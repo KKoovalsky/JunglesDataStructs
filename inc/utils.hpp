@@ -8,6 +8,7 @@
 #define UTILS_HPP
 
 #include <array>
+#include <cmath>
 #include <tuple>
 
 namespace jungles {
@@ -44,6 +45,41 @@ template <std::size_t N> constexpr std::array<char, N - 1> to_array(const char (
 template <typename E> constexpr auto to_u_type(E e) noexcept
 {
     return static_cast<std::underlying_type_t<E>>(e);
+}
+
+template <typename It, typename T> constexpr It find_nearest_boundary(It it, It end, T max_val, T val)
+{
+    if (it == end || val > max_val)
+        return end;
+
+    auto highest_boundary_it{std::prev(end)};
+    auto lowest_boundary_it{it};
+    auto highest_boundary = *highest_boundary_it;
+    auto lowest_boundary = *lowest_boundary_it;
+    if (val < lowest_boundary)
+    {
+        auto distance_to_lowest = lowest_boundary - val;
+        auto distance_to_highest = max_val - highest_boundary + val;
+        return distance_to_lowest > distance_to_highest ? highest_boundary_it : lowest_boundary_it;
+    }
+    else if (val > highest_boundary)
+    {
+        auto distance_to_lowest = max_val - val + lowest_boundary;
+        auto distance_to_highest = val - highest_boundary;
+        return distance_to_lowest > distance_to_highest ? highest_boundary_it : lowest_boundary_it;
+    }
+
+    auto min{max_val};
+    auto res{it};
+    for (; it != end; ++it)
+    {
+        if (auto v{std::abs(*it - val)}; v < min)
+        {
+            min = v;
+            res = it;
+        }
+    }
+    return res;
 }
 
 } // namespace utils
