@@ -83,11 +83,11 @@ template <typename It, typename T> constexpr It find_nearest(It it, It end, T ma
         return distance_to_lowest > distance_to_highest ? highest_val_it : lowest_val_it;
     }
 
-    auto min{max_val};
+    auto min{static_cast<int>(max_val)};
     auto res{it};
     for (; it != end; ++it)
     {
-        if (auto v{std::abs(*it - val)}; v < min)
+        if (auto v{std::abs(static_cast<int>(*it - val))}; v < min)
         {
             min = v;
             res = it;
