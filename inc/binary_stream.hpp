@@ -15,7 +15,7 @@ namespace jungles {
 namespace detail {
 
 //! This is dangerous and can only be used internally unless you know what you are doing.
-template <typename T, typename It> void stream_and_advance(It &it, T val)
+template <typename T, typename It> void write_and_advance(It &it, T val)
 {
     auto to_ptr = &(*it);
     auto to_byte_ptr = reinterpret_cast<uint8_t *>(to_ptr);
@@ -24,7 +24,8 @@ template <typename T, typename It> void stream_and_advance(It &it, T val)
     auto from_byte_ptr = reinterpret_cast<uint8_t *>(from_ptr);
 
     std::copy(from_byte_ptr, from_byte_ptr + sizeof(T), to_byte_ptr);
-    std::advance(it, sizeof(T));
+    using IterableType = typename std::iterator_traits<It>::value_type;
+    std::advance(it, sizeof(T) / sizeof(IterableType));
 }
 
 } // namespace detail
@@ -46,12 +47,12 @@ template <std::size_t InternalBufSize> class binary_stream
      */
     template <typename... TrivialTypes> bool write(TrivialTypes... params)
     {
-        constexpr unsigned sizeof_params = sizeof...(params);
+        constexpr unsigned sizeof_params = (sizeof(params) + ... + 0);
         static_assert(jungles::utils::all_trivial<TrivialTypes...>::value, "The parameters must be trivial types");
         if (space_left() < sizeof_params)
             return false;
 
-        (jungles::detail::stream_and_advance(m_it, params), ...);
+        (jungles::detail::write_and_advance(m_it, params), ...);
         return true;
     }
 
