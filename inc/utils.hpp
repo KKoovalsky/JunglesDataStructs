@@ -23,6 +23,8 @@ template <bool...> struct bool_pack;
 
 template <bool... b> using all_true = std::is_same<bool_pack<true, b...>, bool_pack<b..., true>>;
 
+template <class... Ts> using all_trivial = all_true<std::is_trivial_v<Ts>...>;
+
 template <typename> struct is_std_array : std::false_type
 {
 };

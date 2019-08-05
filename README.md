@@ -123,3 +123,8 @@ for(auto c : exceptional_sequence_inside)
     assert(char_sink.put_element_and_get_message(c).has_value());
 
 ```
+
+## jungles::binary_stream
+
+Allows to serialize to binary form variables of trivial types. Uses native endianness. The tests will work only on
+little endian machine.
