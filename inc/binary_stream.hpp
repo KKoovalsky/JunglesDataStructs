@@ -30,6 +30,15 @@ template <typename T, typename It> void write_and_advance(It &it, T val)
 
 } // namespace detail
 
+/**
+ * \brief Stream binary data to internal buffer.
+ * \tparam InternalBufSize Size of the internal buffer to which the input data is streamed.
+ *
+ * This class allows to serialize binary data. The data are variables of trivial types which will be put into the
+ * internal buffer. This class uses native endianness.
+ * Streaming a uint16_t variable of value 0xFFEE to an empty stream will result in putting 0xEE under index 0 of the
+ * internal buffer and putting 0xFF under index 1 of the internal buffer.
+ */
 template <std::size_t InternalBufSize> class binary_stream
 {
   private:
