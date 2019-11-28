@@ -128,3 +128,15 @@ for(auto c : exceptional_sequence_inside)
 
 Allows to serialize to binary form variables of trivial types. Uses native endianness. The tests will work only on
 little endian machine.
+
+## jungles::utils::num_to_string
+
+Allows to convert unsigned integer to string literal at compile time.
+
+Defined in `inc/num_to_string_constexpr.hpp`.
+
+Use it like that:
+
+```
+static constexpr const char *number_str{jungles::utils::num_to_string<number>::value};
+```
