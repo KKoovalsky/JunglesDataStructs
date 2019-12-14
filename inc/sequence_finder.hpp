@@ -41,7 +41,7 @@ class sequence_finder
     }
 
   private:
-    std::string_view m_sequence_to_find;
+    const std::string_view m_sequence_to_find;
     unsigned m_index;
 };
 
