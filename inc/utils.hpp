@@ -4,8 +4,8 @@
  * @author	Kacper Kowalski - kacper.s.kowalski@gmail.com
  */
 
-#ifndef UTILS_HPP
-#define UTILS_HPP
+#ifndef JUNGLES_UTILS_HPP
+#define JUNGLES_UTILS_HPP
 
 #include <array>
 #include <cmath>
@@ -102,4 +102,4 @@ template <typename It, typename T> constexpr It find_nearest(It it, It end, T ma
 
 } // namespace jungles
 
-#endif /* UTILS_HPP */
+#endif /* JUNGLES_UTILS_HPP */
